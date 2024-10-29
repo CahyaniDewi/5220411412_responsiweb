@@ -50,13 +50,33 @@ class ManageAccountScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle save account details
+                _showConfirmationDialog(context);
               },
               child: Text('Simpan'),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Data Tersimpan'),
+          content: Text('Data akun Anda telah disimpan.'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Tutup dialog
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

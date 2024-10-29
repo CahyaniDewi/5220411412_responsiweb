@@ -1,153 +1,196 @@
 import 'package:flutter/material.dart';
+import 'package:madecahya_responsi/screens/account_screen.dart';
+import 'package:madecahya_responsi/screens/kategori_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  final List<Map<String, String>> gridItems = [
-    {
-      'image':
-          'https://images.unsplash.com/photo-1553830591-42aaee5e72d1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzg3NzV8MHwxfGFsbHwxfHx8fHx8fHwxNjE5NzI3Njg4&ixlib=rb-1.2.1&q=80&w=400',
-      'title': 'Pantai Kuta'
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1534531688091-942be94216d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzg3NzV8MHwxfGFsbHwyfHx8fHx8fHwxNjE5NzI3Njg4&ixlib=rb-1.2.1&q=80&w=400',
-      'title': 'Ubud'
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1567636785271-1760d9c824b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzg3NzV8MHwxfGFsbHwzfHx8fHx8fHwxNjE5NzI3Njg4&ixlib=rb-1.2.1&q=80&w=400',
-      'title': 'Tanah Lot'
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1564564295391-7f24f26f568b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzg3NzV8MHwxfGFsbHw0fHx8fHx8fHwxNjE5NzI3Njg4&ixlib=rb-1.2.1&q=80&w=400',
-      'title': 'Gunung Agung'
-    }
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _pages = [
+    HomePage(),
+    KategoriScreen(),
+    AccountScreen(),
   ];
 
-  final List<Map<String, String>> listItems = [
-    {
-      'image':
-          'https://images.unsplash.com/photo-1534135954997-e58fbd6dbb46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzg3NzV8MHwxfGFsbHw1fHx8fHx8fHwxNjE5NzI3Njg4&ixlib=rb-1.2.1&q=80&w=400',
-      'title': 'Pura Besakih',
-      'description': 'Pura terbesar dan paling penting di Bali.'
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1544396821-4dd40b938ad3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzg3NzV8MHwxfGFsbHw2fHx8fHx8fHwxNjE5NzI3Njg4&ixlib=rb-1.2.1&q=80&w=400',
-      'title': 'Pura Ulun Danu Bratan',
-      'description': 'Pura air yang indah di tepi Danau Bratan.'
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1534951009808-766178b47a4b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzg3NzV8MHwxfGFsbHw3fHx8fHx8fHwxNjE5NzI3Njg4&ixlib=rb-1.2.1&q=80&w=400',
-      'title': 'Pantai Sanur',
-      'description':
-          'Pantai tenang dengan pasir putih dan pemandangan matahari terbit.'
-    },
-    {
-      'image':
-          'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxNzg3NzV8MHwxfGFsbHw4fHx8fHx8fHwxNjE5NzI3Njg4&ixlib=rb-1.2.1&q=80&w=400',
-      'title': 'Pantai Nusa Dua',
-      'description':
-          'Pantai yang terkenal dengan resor mewah dan aktivitas air.'
-    }
-  ];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rekomendasi Tempat Wisata di Bali'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {},
-          ),
-        ],
+        title: Text('Wisata Bali'),
+        backgroundColor: Colors.teal,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text('Destinasi Populer',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text('Grid View',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            ),
-            Container(
-              height: 200,
-              child: GridView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: gridItems.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 1,
-                ),
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(
-                      children: [
-                        Image.network(gridItems[index]['image']!,
-                            fit: BoxFit.cover,
-                            height: 120,
-                            width: double.infinity),
-                        SizedBox(height: 10),
-                        Text(gridItems[index]['title']!,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text('Rekomendasi Lainnya',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            ),
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: listItems.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Image.network(listItems[index]['image']!,
-                      fit: BoxFit.cover, width: 50, height: 50),
-                  title: Text(listItems[index]['title']!,
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text(listItems[index]['description']!),
-                  trailing: Icon(Icons.arrow_forward),
-                  onTap: () {
-                    // Handle tap event here
-                  },
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Akun'),
-          BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Logout'),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Kategori',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Akun',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.logout),
+            label: 'Logout',
+          ),
         ],
-        currentIndex: 0,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.teal,
+        unselectedItemColor: Colors.grey,
         onTap: (index) {
-          if (index == 1) {
-            Navigator.pushNamed(context, '/account');
+          if (index == 3) {
+            Navigator.pushReplacementNamed(context, '/login');
+          } else {
+            _onItemTapped(index);
           }
         },
       ),
     );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          // Banner
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage('https://ik.imagekit.io/tvlk/blog/2023/09/shutterstock_631736717.jpg?tr=c-at_max'), // Ganti dengan URL gambar banner yang sesuai
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'Selamat Datang di Wisata Bali',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(color: Colors.black54, offset: Offset(1, 1), blurRadius: 5),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Grid View
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Destinasi Wisata Favorite',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ),
+          GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.all(8.0),
+            children: List.generate(4, (index) {
+              return Card(
+                color: Colors.teal[100 + index * 50], // Warna unik untuk setiap card
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.place, size: 50, color: Colors.teal[900]),
+                    SizedBox(height: 10),
+                    Text(
+                      'Destinasi ${index + 1}',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      _getDestinationDescription(index),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
+
+          // List View
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'List Destinasi',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                child: ListTile(
+                  leading: Icon(Icons.place, color: Colors.teal),
+                  title: Text('Destinasi List ${index + 1}'),
+                  subtitle: Text(_getListDestinationDescription(index)),
+                  onTap: () {
+                    // Logika untuk membuka detail destinasi
+                  },
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getDestinationDescription(int index) {
+    switch (index) {
+      case 0:
+        return 'Pantai Kuta: Pantai ikonik dengan ombak yang sempurna.';
+      case 1:
+        return 'Ubud: Pusat seni dan budaya Bali yang menawan.';
+      case 2:
+        return 'Tegallalang: Terasering sawah yang sangat fotogenik.';
+      case 3:
+        return 'Tanah Lot: Pura yang terletak di atas batu karang.';
+      default:
+        return '';
+    }
+  }
+
+  String _getListDestinationDescription(int index) {
+    switch (index) {
+      case 0:
+        return 'Pantai Seminyak: Tempat bersantai dengan suasana yang chic.';
+      case 1:
+        return 'Pura Besakih: Pura terbesar dan terpenting di Bali.';
+      case 2:
+        return 'Kintamani: Pemandangan gunung dan danau yang menakjubkan.';
+      case 3:
+        return 'Nusa Penida: Pulau cantik dengan pantai berpasir putih.';
+      case 4:
+        return 'Jimbaran: Pantai yang terkenal dengan restoran seafood.';
+      default:
+        return '';
+    }
   }
 }
